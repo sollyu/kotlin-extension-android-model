@@ -32,4 +32,9 @@ interface KIExtensionFile {
      * 如果文件存在就删除
      */
     fun File.deleteIfExist():Boolean = if (exists()) delete() else true
+
+    /**
+     * 清空整个文件夹，包含子目录
+     */
+    fun File.clear() = FileUtils.deleteDirectory(this)
 }
