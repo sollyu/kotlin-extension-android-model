@@ -36,5 +36,5 @@ interface KIExtensionFile {
     /**
      * 清空整个文件夹，包含子目录
      */
-    fun File.clear() = FileUtils.deleteDirectory(this)
+    fun File.clear() = FileUtils.cleanDirectory(this)
 }

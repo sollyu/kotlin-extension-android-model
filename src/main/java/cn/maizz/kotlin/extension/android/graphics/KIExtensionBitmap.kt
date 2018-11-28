@@ -18,6 +18,8 @@ package cn.maizz.kotlin.extension.android.graphics
 
 import android.graphics.Bitmap
 import android.graphics.Matrix
+import java.io.File
+import java.io.FileOutputStream
 import java.nio.ByteBuffer
 
 @Suppress("unused")
@@ -61,4 +63,8 @@ interface KIExtensionBitmap {
     fun Bitmap.zoom(px: Float, py: Float): Bitmap = Bitmap.createBitmap(this, 0, 0, this.width, this.height, Matrix().apply { postScale(px, py) }, true)
 
     fun Bitmap.zoomByWidthAndHeight(width: Int, height: Int): Bitmap = zoom(((width / this.width).toFloat()), (height / this.height).toFloat())
+
+    fun Bitmap.save(file: File, compressFormat: Bitmap.CompressFormat = Bitmap.CompressFormat.PNG, quality:Int = 100):Boolean = compress(compressFormat, quality, FileOutputStream(file))
+
+
 }
