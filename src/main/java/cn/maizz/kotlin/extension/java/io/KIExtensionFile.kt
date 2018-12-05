@@ -37,4 +37,9 @@ interface KIExtensionFile {
      * 清空整个文件夹，包含子目录
      */
     fun File.clear() = FileUtils.cleanDirectory(this)
+
+    /**
+     * 文件不存在
+     */
+    fun File.notExists():Boolean = !this.exists()
 }
