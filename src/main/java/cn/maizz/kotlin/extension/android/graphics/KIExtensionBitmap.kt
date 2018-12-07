@@ -69,6 +69,7 @@ interface KIExtensionBitmap {
      * @param py y轴缩放比例
      */
     fun Bitmap.zoom(px: Float, py: Float): Bitmap = Bitmap.createBitmap(this, 0, 0, this.width, this.height, Matrix().apply { postScale(px, py) }, true)
+
     fun Bitmap.zoomByWidthAndHeight(width: Int, height: Int): Bitmap = zoom(((width.toFloat() / this.width.toFloat())), (height.toFloat() / this.height))
     fun Bitmap.resize(newWidth: Int, newHeight: Int): Bitmap = this.zoomByWidthAndHeight(newWidth, newHeight)
 
@@ -85,4 +86,9 @@ interface KIExtensionBitmap {
         this.compress(compressFormat, quality, byteArrayOutputStream)
         return BitmapFactory.decodeByteArray(byteArrayOutputStream.toByteArray(), 0, byteArrayOutputStream.size())
     }
+
+    fun Bitmap.crop(cropWidth: Int): Bitmap {
+        return Bitmap.createBitmap(this, (this.width - cropWidth) / 2, (this.height - cropWidth) / 2, cropWidth, cropWidth)
+    }
+
 }
