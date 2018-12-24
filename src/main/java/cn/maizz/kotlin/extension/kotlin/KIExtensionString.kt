@@ -38,7 +38,7 @@ interface KIExtensionString {
     fun String.base64Encode(charset: Charset = Charsets.UTF_8, base64Flag: Int = Base64.NO_WRAP): String = Base64.encodeToString(this.toByteArray(charset), base64Flag)
     fun String.base64Decode(charset: Charset = Charsets.UTF_8, base64Flag: Int = Base64.NO_WRAP): String = String(Base64.decode(this, base64Flag), charset)
 
-    fun String.md5(charset: Charset = Charsets.UTF_8, useUpper: Boolean = true) = MessageDigest.getInstance("MD5").digest(this.toByteArray(charset)).joinToString("") { String.format(if (useUpper) "%02X" else "%02x", it) }
+    fun String.md5(charset: Charset = Charsets.UTF_8, useUpper: Boolean = true):String = MessageDigest.getInstance("MD5").digest(this.toByteArray(charset)).joinToString("") { String.format(if (useUpper) "%02X" else "%02x", it) }
 
     fun String.random(length: Int = 10, random: Random = Random(System.currentTimeMillis())): String = (0 until length).map { this[random.nextInt(this.length)] }.joinToString("")
 
