@@ -135,4 +135,31 @@ interface KIExtensionContext {
     @Suppress("UsePropertyAccessSyntax")
     fun Context.setClipboardHtmlText(text: CharSequence, htmlText: String, label: CharSequence? = null) = (this.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager).setPrimaryClip(ClipData.newHtmlText(label, text, htmlText))
 
+    /**
+     * dp转换成px
+     * @param dpValue dp 值
+     * @return dp 转换成px 的数值 例子： 输入的dpValue 为10  density 为3 则返回的值为30px
+     */
+    fun Context.dp2px(dpValue: Int): Int = (resources.displayMetrics.density * dpValue + 0.5F).toInt()
+
+    /**
+     * sp转乘px
+     * @param spValue sp值
+     * @return sp转px 的数值
+     */
+    fun Context.sp2px(spValue: Float) = ((spValue - 0.5f) * resources.displayMetrics.scaledDensity).toInt()
+
+    /**
+     * px转dp
+     * @param px 像素值
+     * @return dp
+     */
+    fun Context.px2dp(pxValue: Float) = (pxValue / resources.displayMetrics.density + 0.5F).toInt()
+
+    /**
+     * px转sp
+     * @param pxValue 像素值
+     * @return sp
+     */
+    fun Context.px2sp(pxValue: Float) = (pxValue / resources.displayMetrics.scaledDensity + 0.5F).toInt()
 }
