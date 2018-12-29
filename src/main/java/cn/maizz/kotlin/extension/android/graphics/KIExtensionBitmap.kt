@@ -17,7 +17,11 @@
 package cn.maizz.kotlin.extension.android.graphics
 
 import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.graphics.Matrix
+import java.io.ByteArrayOutputStream
+import java.io.File
+import java.io.FileOutputStream
 import java.nio.ByteBuffer
 
 @Suppress("unused")
@@ -58,7 +62,33 @@ interface KIExtensionBitmap {
      */
     fun Bitmap.rotate(degrees: Float, px: Float, py: Float): Bitmap = Bitmap.createBitmap(this, 0, 0, this.width, this.height, Matrix().apply { postRotate(degrees, 0f, 0f) }, true)
 
+    /**
+     * 进行缩放
+     *
+     * @param px x轴缩放比例
+     * @param py y轴缩放比例
+     */
     fun Bitmap.zoom(px: Float, py: Float): Bitmap = Bitmap.createBitmap(this, 0, 0, this.width, this.height, Matrix().apply { postScale(px, py) }, true)
 
-    fun Bitmap.zoomByWidthAndHeight(width: Int, height: Int): Bitmap = zoom(((width / this.width).toFloat()), (height / this.height).toFloat())
+    fun Bitmap.zoomByWidthAndHeight(width: Int, height: Int): Bitmap = zoom(((width.toFloat() / this.width.toFloat())), (height.toFloat() / this.height))
+    fun Bitmap.resize(newWidth: Int, newHeight: Int): Bitmap = this.zoomByWidthAndHeight(newWidth, newHeight)
+
+    /**
+     * 保存图片
+     */
+    fun Bitmap.save(file: File, compressFormat: Bitmap.CompressFormat = Bitmap.CompressFormat.PNG, quality: Int = 100): Boolean = compress(compressFormat, quality, FileOutputStream(file))
+
+    /**
+     * 格式转换
+     */
+    fun Bitmap.convert(compressFormat: Bitmap.CompressFormat = Bitmap.CompressFormat.PNG, quality: Int = 100): Bitmap {
+        val byteArrayOutputStream = ByteArrayOutputStream()
+        this.compress(compressFormat, quality, byteArrayOutputStream)
+        return BitmapFactory.decodeByteArray(byteArrayOutputStream.toByteArray(), 0, byteArrayOutputStream.size())
+    }
+
+    fun Bitmap.crop(cropWidth: Int): Bitmap {
+        return Bitmap.createBitmap(this, (this.width - cropWidth) / 2, (this.height - cropWidth) / 2, cropWidth, cropWidth)
+    }
+
 }

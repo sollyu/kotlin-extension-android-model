@@ -27,4 +27,19 @@ interface KIExtensionFile {
     fun File.md5(): String = String(Hex.encodeHex(DigestUtils.md5(FileInputStream(this)))).toUpperCase()
 
     fun File.writeStringToFile(data: String, charset: Charset = Charset.forName("UTF-8"), append: Boolean = false) = FileUtils.writeStringToFile(this, data, charset, append)
+
+    /**
+     * 如果文件存在就删除
+     */
+    fun File.deleteIfExist():Boolean = if (exists()) delete() else true
+
+    /**
+     * 清空整个文件夹，包含子目录
+     */
+    fun File.clear() = FileUtils.cleanDirectory(this)
+
+    /**
+     * 文件不存在
+     */
+    fun File.notExists():Boolean = !this.exists()
 }

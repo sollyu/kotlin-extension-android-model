@@ -59,4 +59,9 @@ interface KIExtensionDate {
      * @param amount 数量，默认1
      */
     fun Date.add(field: Int = Calendar.DAY_OF_MONTH, amount: Int = 1): Date = Calendar.getInstance().apply { this.timeInMillis = this@add.time; this.add(field, amount) }.time
+
+    /**
+     * 转换成Calendar对象
+     */
+    fun Date.toCalendar(): Calendar = Calendar.getInstance().apply { time = this.time }
 }
