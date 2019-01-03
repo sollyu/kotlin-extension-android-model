@@ -24,7 +24,7 @@ import java.io.FileInputStream
 import java.nio.charset.Charset
 
 interface KIExtensionFile {
-    fun File.readAsText(encoding:Charset = Charset.forName("UTF-8")):String = FileUtils.readFileToString(this, encoding)
+    fun File.readAsText(encoding: Charset = Charset.forName("UTF-8")): String = FileUtils.readFileToString(this, encoding)
 
     fun File.md5(): String = String(Hex.encodeHex(DigestUtils.md5(FileInputStream(this)))).toUpperCase()
 
@@ -33,7 +33,7 @@ interface KIExtensionFile {
     /**
      * 如果文件存在就删除
      */
-    fun File.deleteIfExist():Boolean = if (exists()) delete() else true
+    fun File.deleteIfExist(): Boolean = if (exists()) delete() else true
 
     /**
      * 清空整个文件夹，包含子目录
@@ -43,5 +43,5 @@ interface KIExtensionFile {
     /**
      * 文件不存在
      */
-    fun File.notExists():Boolean = !this.exists()
+    fun File.notExists(): Boolean = !this.exists()
 }

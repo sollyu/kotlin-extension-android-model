@@ -23,11 +23,11 @@ import org.junit.Test
 import org.junit.runner.RunWith
 
 @RunWith(AndroidJUnit4::class)
-class KIExtensionByteTest:KIExtensionByte {
+class KIExtensionByteTest : KIExtensionByte {
 
     @Test
-   fun  testToBit(){
-       val byte:Byte=8
-       assertEquals(byte.toBit(), "00001000")
-   }
+    fun testToBit() {
+        val byte: Byte = 8
+        assertEquals(byte.toBit(), "00001000")
+    }
 }
