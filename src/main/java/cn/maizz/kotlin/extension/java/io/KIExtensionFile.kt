@@ -24,6 +24,8 @@ import java.io.FileInputStream
 import java.nio.charset.Charset
 
 interface KIExtensionFile {
+    fun File.readAsText(encoding:Charset = Charset.forName("UTF-8")):String = FileUtils.readFileToString(this, encoding)
+
     fun File.md5(): String = String(Hex.encodeHex(DigestUtils.md5(FileInputStream(this)))).toUpperCase()
 
     fun File.writeStringToFile(data: String, charset: Charset = Charset.forName("UTF-8"), append: Boolean = false) = FileUtils.writeStringToFile(this, data, charset, append)
