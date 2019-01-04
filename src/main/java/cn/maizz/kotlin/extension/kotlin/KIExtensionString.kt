@@ -60,6 +60,11 @@ interface KIExtensionString {
     ).matcher(this).matches()
 
     /**
+     * 判断是否一个手机号码
+     */
+    fun String.isPhoneNumber():Boolean = Pattern.compile("^((13[0-9])|(15[^4])|(18[0-9])|(17[0-8])|(14[5-9])|(166)|(19[8,9])|)\\d{8}$").matcher(this).matches()
+
+    /**
      * @param endIndex 结束位置
      */
     fun String.toUpperCase(endIndex: Int): String = this.substring(0, endIndex).toUpperCase() + this.substring(endIndex)
