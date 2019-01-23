@@ -17,6 +17,7 @@
 package cn.maizz.kotlin.extension.java.util
 
 import android.text.format.DateUtils
+import java.sql.Time
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -81,4 +82,13 @@ interface KIExtensionDate {
      */
     @Suppress("DEPRECATION")
     fun Date.day(): Date = Date(this.year, this.month, this.dayMonth())
+
+    /**
+     * 将日期转换成日期单位
+     *
+     * 注意：此时的年部分为：1970-01-01
+     * @see Time
+     */
+    @Suppress("DEPRECATION")
+    fun Date.toTime(): Time = Time(this.hours, this.minutes, this.seconds)
 }
