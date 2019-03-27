@@ -17,6 +17,7 @@
 package cn.maizz.kotlin.extension.java.util
 
 import android.text.format.DateUtils
+import java.sql.Time
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -56,12 +57,38 @@ interface KIExtensionDate {
     /**
      * 使一个日期相加
      * @param field  单位，默认天
-     * @param amount 数量，默认1
+     * @param amount 数量，默认1, 也可为负数
      */
     fun Date.add(field: Int = Calendar.DAY_OF_MONTH, amount: Int = 1): Date = Calendar.getInstance().apply { this.timeInMillis = this@add.time; this.add(field, amount) }.time
 
     /**
+     * 两个日期相减
+     * @param date 另外一个日期
+     */
+    fun Date.sub(date: Date): Date = Date(this.time - date.time)
+
+    /**
      * 转换成Calendar对象
      */
-    fun Date.toCalendar(): Calendar = Calendar.getInstance().apply { time = this.time }
+    fun Date.toCalendar(): Calendar = Calendar.getInstance().also { it.timeInMillis = this.time }
+
+    /**
+     * 获取本月的第几天
+     */
+    fun Date.dayMonth(): Int = this.toCalendar().get(Calendar.DAY_OF_MONTH)
+
+    /**
+     * 获取今日，2019/1/3 14:05:00 => 2019/1/3 00:00:00
+     */
+    @Suppress("DEPRECATION")
+    fun Date.day(): Date = Date(this.year, this.month, this.dayMonth())
+
+    /**
+     * 将日期转换成日期单位
+     *
+     * 注意：此时的年部分为：1970-01-01
+     * @see Time
+     */
+    @Suppress("DEPRECATION")
+    fun Date.toTime(): Time = Time(this.hours, this.minutes, this.seconds)
 }

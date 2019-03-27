@@ -30,7 +30,6 @@ import android.net.Uri
 import android.os.Build
 import android.provider.Settings
 import android.telephony.TelephonyManager
-import android.view.View
 import java.io.File
 import java.util.concurrent.TimeUnit
 
@@ -42,9 +41,11 @@ interface KIExtensionContext {
      */
     @TargetApi(Build.VERSION_CODES.LOLLIPOP_MR1)
     fun Context.queryUsageStats(intervalType: Int = UsageStatsManager.INTERVAL_BEST, beginTime: Long = System.currentTimeMillis() - TimeUnit.SECONDS.toMillis(10), endTime: Long = System.currentTimeMillis()) =
-            (this.getSystemService(Context.USAGE_STATS_SERVICE) as UsageStatsManager).queryUsageStats(intervalType, beginTime, endTime)
+        (this.getSystemService(Context.USAGE_STATS_SERVICE) as UsageStatsManager).queryUsageStats(intervalType, beginTime, endTime)
 
-    fun Context.getTelephonyManager() = this.getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager
+    fun Context.getTelephonyManager(): TelephonyManager = this.getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager
+
+    fun Context.getSystemString(name: String, default: String = ""): String = Settings.System.getString(contentResolver, name) ?: default
 
     /**
      * 打开一个已经存在的APP

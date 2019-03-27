@@ -50,14 +50,12 @@ interface KIExtensionString {
     /**
      * 判断是否一个邮箱
      */
-    fun String.isEmailValid(): Boolean = Pattern.compile(
-        "^(([\\w-]+\\.)+[\\w-]+|([a-zA-Z]|[\\w-]{2,}))@"
-                + "((([0-1]?[0-9]{1,2}|25[0-5]|2[0-4][0-9])\\.([0-1]?"
-                + "[0-9]{1,2}|25[0-5]|2[0-4][0-9])\\."
-                + "([0-1]?[0-9]{1,2}|25[0-5]|2[0-4][0-9])\\.([0-1]?"
-                + "[0-9]{1,2}|25[0-5]|2[0-4][0-9]))|"
-                + "([a-zA-Z]+[\\w-]+\\.)+[a-zA-Z]{2,4})$"
-    ).matcher(this).matches()
+    fun String.isEmailValid(): Boolean = Pattern.compile("^\\w+@\\w+\\.\\w{2,}\$").matcher(this).matches()
+
+    /**
+     * 判断是否一个手机号码
+     */
+    fun String.isPhoneNumber():Boolean = Pattern.compile("^((13[0-9])|(15[^4])|(18[0-9])|(17[0-8])|(14[5-9])|(166)|(19[8,9])|)\\d{8}$").matcher(this).matches()
 
     /**
      * @param endIndex 结束位置
