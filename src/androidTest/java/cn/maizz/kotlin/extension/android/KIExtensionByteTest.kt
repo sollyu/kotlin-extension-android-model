@@ -17,13 +17,13 @@
 package cn.maizz.kotlin.extension.android
 
 import android.support.test.runner.AndroidJUnit4
-import cn.maizz.kotlin.extension.kotlin.KIExtensionByte
+import cn.maizz.kotlin.extension.kotlin.toBit
 import org.junit.Assert.assertEquals
 import org.junit.Test
 import org.junit.runner.RunWith
 
 @RunWith(AndroidJUnit4::class)
-class KIExtensionByteTest : KIExtensionByte {
+class KIExtensionByteTest {
 
     @Test
     fun testToBit() {

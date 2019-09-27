@@ -18,11 +18,9 @@ package cn.maizz.kotlin.extension.android.content.pm
 
 import android.content.pm.ApplicationInfo
 
-@Suppress("unused")
-interface KIExtensionApplicationInfo {
 
-    fun ApplicationInfo.isSystemApp():Boolean = (this.flags and ApplicationInfo.FLAG_SYSTEM) != 0
-    fun ApplicationInfo.isSystemUpdateApp():Boolean = (this.flags and ApplicationInfo.FLAG_UPDATED_SYSTEM_APP) != 0
-    fun ApplicationInfo.isUserApp():Boolean = (this.flags and ApplicationInfo.FLAG_SYSTEM) == 0
+fun ApplicationInfo.isSystemApp(): Boolean = (this.flags and ApplicationInfo.FLAG_SYSTEM) != 0
 
-}
+fun ApplicationInfo.isSystemUpdateApp(): Boolean = (this.flags and ApplicationInfo.FLAG_UPDATED_SYSTEM_APP) != 0
+
+fun ApplicationInfo.isUserApp(): Boolean = (this.flags and ApplicationInfo.FLAG_SYSTEM) == 0

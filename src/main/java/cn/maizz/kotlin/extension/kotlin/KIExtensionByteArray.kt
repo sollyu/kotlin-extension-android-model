@@ -18,14 +18,13 @@ package cn.maizz.kotlin.extension.kotlin
 
 import java.security.MessageDigest
 
-interface KIExtensionByteArray {
 
-    /**
-     * 转换成16进制字符串
-     */
-    fun ByteArray.toStringHex(): String = this.joinToString(separator = "") { it.toInt().and(0xff).toString(16).padStart(2, '0') }
+/**
+ * 转换成16进制字符串
+ */
+fun ByteArray.toStringHex(): String = this.joinToString(separator = "") { it.toInt().and(0xff).toString(16).padStart(2, '0') }
 
-    fun ByteArray.toHexString(): String = this.toStringHex()
-
-    fun ByteArray.md5(useUpper: Boolean = true):String = MessageDigest.getInstance("MD5").digest(this).joinToString("") { String.format(if (useUpper) "%02X" else "%02x", it) }
-}
+/**
+ * 计算MD5值
+ */
+fun ByteArray.md5(): String = MessageDigest.getInstance("MD5").digest(this).joinToString("") { String.format("%02X") }

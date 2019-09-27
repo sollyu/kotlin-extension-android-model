@@ -18,7 +18,5 @@ package cn.maizz.kotlin.extension.android.os
 
 import android.os.Handler
 
-interface KIExtensionHandler {
-    fun Handler.postDelayed(delayMillis: Long, runnable: Runnable): Runnable = this.postDelayed(runnable, delayMillis).let { return@let runnable }
-    fun Handler.postDelayed(delayMillis: Long, runnable: () -> Unit): Runnable = this.postDelayed(delayMillis, Runnable { runnable() })
-}
+fun Handler.postDelayed(delayMillis: Long, runnable: Runnable): Runnable = this.postDelayed(runnable, delayMillis).let { return@let runnable }
+fun Handler.postDelayed(delayMillis: Long, runnable: () -> Unit): Runnable = this.postDelayed(delayMillis, Runnable { runnable() })

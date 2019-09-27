@@ -17,13 +17,13 @@
 package cn.maizz.kotlin.extension.android
 
 import android.support.test.runner.AndroidJUnit4
-import cn.maizz.kotlin.extension.kotlin.KIExtensionString
+import cn.maizz.kotlin.extension.kotlin.*
 import junit.framework.Assert.assertEquals
 import org.junit.Test
 import org.junit.runner.RunWith
 
 @RunWith(AndroidJUnit4::class)
-class KIExtensionStringTest : KIExtensionString {
+class KIExtensionStringTest {
 
     @Test
     fun base64Encode() {
@@ -37,7 +37,7 @@ class KIExtensionStringTest : KIExtensionString {
 
     @Test
     fun md5() {
-        assertEquals("admin".md5(), "21232F297A57A5A743894A0E4A801FC3")
+        assertEquals("admin".md5(), "21232f297a57a5a743894a0e4a801fc3")
     }
 
     @Test
@@ -58,17 +58,5 @@ class KIExtensionStringTest : KIExtensionString {
         assertEquals("sollyu".isContainChinese(), false)
         assertEquals("sollyu最牛逼".isContainChinese(), true)
         assertEquals("sollyu，very good".isContainChinese(), false)
-    }
-
-    @Test
-    fun toUpperCaseTest() {
-        assertEquals("wonium".toUpperCase(1), "Wonium")
-        assertEquals("wonium".toUpperCase(3), "WONium")
-    }
-
-    @Test
-    fun toLowerCaseTest() {
-        assertEquals("WONIum".toLowerCase(1), "wONIum")
-        assertEquals("WONIum".toLowerCase(3), "wonIum")
     }
 }

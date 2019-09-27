@@ -24,7 +24,7 @@ import java.util.*
 import java.util.concurrent.TimeUnit
 
 @RunWith(AndroidJUnit4::class)
-class KIExtensionDateTest : KIExtensionDate {
+class KIExtensionDateTest  {
 
     @Test
     fun format() {

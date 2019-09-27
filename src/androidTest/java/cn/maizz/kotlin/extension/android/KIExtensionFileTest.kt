@@ -17,19 +17,19 @@
 package cn.maizz.kotlin.extension.android
 
 import android.support.test.runner.AndroidJUnit4
-import cn.maizz.kotlin.extension.java.io.KIExtensionFile
+import cn.maizz.kotlin.extension.java.io.md5
 import org.junit.Assert
 import org.junit.Test
 import org.junit.runner.RunWith
 import java.io.File
 
 @RunWith(AndroidJUnit4::class)
-class KIExtensionFileTest : KIExtensionFile {
+class KIExtensionFileTest {
 
     @Test
     fun readFileToByteArray() {
-        val f = File("/data/data/cn.maizz.kotlin.extension.android.test/files/test.tmp").apply { this.parentFile.mkdirs(); }
+        val f:File = File("/data/data/cn.maizz.kotlin.extension.android.test/files/test.tmp").apply { this.parentFile.mkdirs(); }
         f.writeText("kotlin-extension-android")
-        Assert.assertEquals(f.md5(), "4DE01A6FB114971C48C4495DA70F23B2")
+        Assert.assertEquals(f.md5(), "4de01a6fb114971c48c4495da70f23b2")
     }
 }
