@@ -19,6 +19,7 @@ package cn.maizz.kotlin.extension.java.io
 
 import org.apache.commons.io.IOUtils
 import java.io.InputStream
+import java.io.OutputStream
 import java.nio.charset.Charset
 
 fun InputStream.toString(encoding: Charset) = IOUtils.toString(this, encoding)!!
@@ -28,3 +29,9 @@ fun InputStream.toByteArray() = IOUtils.toByteArray(this)!!
 fun InputStream.toCharArray(encoding: Charset = Charset.forName("UTF-8")) = IOUtils.toCharArray(this, encoding)!!
 
 fun InputStream.equal(inputStream: InputStream) = IOUtils.contentEquals(this, inputStream)
+
+fun InputStream.readLines(encoding: Charset = Charset.forName("UTF-8")) = IOUtils.readLines(this, encoding)
+
+fun InputStream.copy(outputStream: OutputStream) = IOUtils.copy(this, outputStream)
+
+fun InputStream.copyLarge(outputStream: OutputStream, inputOffset: Long, length: Long) = IOUtils.copyLarge(this, outputStream, inputOffset, length)
