@@ -20,8 +20,6 @@ package cn.maizz.kotlin.extension.kotlin
 import org.junit.Assert
 import org.junit.Test
 
-import org.junit.Assert.*
-
 class KIExtensionByteArrayKtTest {
 
     @Test
