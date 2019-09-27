@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Sollyu, Wonium
+ * Copyright 2018-2019 Sollyu, Wonium
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -12,6 +12,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
+ *
  */
 
 package cn.maizz.kotlin.extension.android.widget
@@ -28,7 +29,6 @@ fun View.showSoftInput(flags: Int = InputMethodManager.SHOW_IMPLICIT) = (this.co
 
 fun View.getClipboardString() = (this.context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager).primaryClip?.let { return@let if (it.itemCount > 0) it.getItemAt(0).text else null }
 
-@Suppress("UsePropertyAccessSyntax")
 fun View.setClipboardString(text: CharSequence, label: CharSequence? = null) = (this.context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager).setPrimaryClip(ClipData.newPlainText(label, text))
 
 @TargetApi(Build.VERSION_CODES.JELLY_BEAN)

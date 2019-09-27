@@ -15,18 +15,19 @@
  *
  */
 
-package cn.maizz.kotlin.extension.android.content
+package cn.maizz.kotlin.extension.java.util
 
-import android.content.SharedPreferences
-import org.json.JSONObject
+import org.junit.Assert
+import org.junit.Test
+import java.util.*
 
+class KIExtensionListKtTest {
 
-/**
- * 判断配置是否存在
- */
-fun SharedPreferences.has(key: String): Boolean = !this.getString(key, null).isNullOrEmpty()
+    @Test
+    fun random() {
+        val origin: List<String> = arrayListOf("i", "love", "china")
+        val random: String = origin.random(Random())
 
-/**
- * 直接获取一个Json对象
- */
-fun SharedPreferences.getJson(key: String, default: String = "{}"): JSONObject = JSONObject(this.getString(key, default) ?: default)
+        Assert.assertTrue(origin.indexOf(random) != -1)
+    }
+}

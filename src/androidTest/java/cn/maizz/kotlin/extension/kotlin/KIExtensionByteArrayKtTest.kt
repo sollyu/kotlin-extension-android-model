@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Sollyu, Wonium
+ * Copyright 2018-2019 Sollyu, Wonium
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -12,24 +12,25 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
+ *
  */
 
-package cn.maizz.kotlin.extension.android
+package cn.maizz.kotlin.extension.kotlin
 
-import android.support.test.runner.AndroidJUnit4
-import cn.maizz.kotlin.extension.java.io.md5
 import org.junit.Assert
 import org.junit.Test
-import org.junit.runner.RunWith
-import java.io.File
 
-@RunWith(AndroidJUnit4::class)
-class KIExtensionFileTest {
+import org.junit.Assert.*
+
+class KIExtensionByteArrayKtTest {
 
     @Test
-    fun readFileToByteArray() {
-        val f:File = File("/data/data/cn.maizz.kotlin.extension.android.test/files/test.tmp").apply { this.parentFile.mkdirs(); }
-        f.writeText("kotlin-extension-android")
-        Assert.assertEquals(f.md5(), "4de01a6fb114971c48c4495da70f23b2")
+    fun toStringHex() {
+        Assert.assertEquals(byteArrayOf(12, 32, 43).toStringHex(), "0c202b")
+    }
+
+    @Test
+    fun md5() {
+        Assert.assertEquals(byteArrayOf(12, 32, 43).md5(), "d0f034d30f1ad53d36f6d30d18a413fe")
     }
 }
