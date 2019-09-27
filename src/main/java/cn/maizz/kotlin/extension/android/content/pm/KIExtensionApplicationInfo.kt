@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Sollyu, Wonium
+ * Copyright 2018-2019 Sollyu, Wonium
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -12,17 +12,16 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
+ *
  */
 
 package cn.maizz.kotlin.extension.android.content.pm
 
 import android.content.pm.ApplicationInfo
 
-@Suppress("unused")
-interface KIExtensionApplicationInfo {
 
-    fun ApplicationInfo.isSystemApp():Boolean = (this.flags and ApplicationInfo.FLAG_SYSTEM) != 0
-    fun ApplicationInfo.isSystemUpdateApp():Boolean = (this.flags and ApplicationInfo.FLAG_UPDATED_SYSTEM_APP) != 0
-    fun ApplicationInfo.isUserApp():Boolean = (this.flags and ApplicationInfo.FLAG_SYSTEM) == 0
+fun ApplicationInfo.isSystemApp(): Boolean = (this.flags and ApplicationInfo.FLAG_SYSTEM) != 0
 
-}
+fun ApplicationInfo.isSystemUpdateApp(): Boolean = (this.flags and ApplicationInfo.FLAG_UPDATED_SYSTEM_APP) != 0
+
+fun ApplicationInfo.isUserApp(): Boolean = (this.flags and ApplicationInfo.FLAG_SYSTEM) == 0

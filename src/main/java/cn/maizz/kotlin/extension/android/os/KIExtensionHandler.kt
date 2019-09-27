@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Sollyu, Wonium
+ * Copyright 2018-2019 Sollyu, Wonium
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -12,13 +12,12 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
+ *
  */
 
 package cn.maizz.kotlin.extension.android.os
 
 import android.os.Handler
 
-interface KIExtensionHandler {
-    fun Handler.postDelayed(delayMillis: Long, runnable: Runnable): Runnable = this.postDelayed(runnable, delayMillis).let { return@let runnable }
-    fun Handler.postDelayed(delayMillis: Long, runnable: () -> Unit): Runnable = this.postDelayed(delayMillis, Runnable { runnable() })
-}
+fun Handler.postDelayed(delayMillis: Long, runnable: Runnable): Runnable = this.postDelayed(runnable, delayMillis).let { return@let runnable }
+fun Handler.postDelayed(delayMillis: Long, runnable: () -> Unit): Runnable = this.postDelayed(delayMillis, Runnable { runnable() })

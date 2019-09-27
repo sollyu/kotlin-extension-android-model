@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Sollyu, Wonium
+ * Copyright 2018-2019 Sollyu, Wonium
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -12,14 +12,18 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
+ *
  */
 
 package cn.maizz.kotlin.extension.java.util
 
 import java.util.*
 
-interface KIExtensionList {
 
-    fun <E> List<E>.random(): E = get(Random(System.currentTimeMillis()).nextInt(size))
+/**
+ * 随机获取一个值
+ *
+ * @param random 随机种子
+ */
+fun <E> List<E>.random(random: Random = Random(System.currentTimeMillis())): E = get(random.nextInt(size))
 
-}

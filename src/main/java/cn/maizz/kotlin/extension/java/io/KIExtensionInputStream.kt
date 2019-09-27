@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Sollyu, Wonium
+ * Copyright 2018-2019 Sollyu, Wonium
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -12,6 +12,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
+ *
  */
 
 package cn.maizz.kotlin.extension.java.io
@@ -20,14 +21,10 @@ import org.apache.commons.io.IOUtils
 import java.io.InputStream
 import java.nio.charset.Charset
 
-@Suppress("unused")
-interface KIExtensionInputStream {
+fun InputStream.toString(encoding: Charset) = IOUtils.toString(this, encoding)!!
 
-    fun InputStream.toString(encoding: Charset) = IOUtils.toString(this, encoding)!!
+fun InputStream.toByteArray() = IOUtils.toByteArray(this)!!
 
-    fun InputStream.toByteArray() = IOUtils.toByteArray(this)!!
+fun InputStream.toCharArray(encoding: Charset = Charset.forName("UTF-8")) = IOUtils.toCharArray(this, encoding)!!
 
-    fun InputStream.toCharArray(encoding: Charset = Charset.forName("UTF-8")) = IOUtils.toCharArray(this, encoding)!!
-
-    fun InputStream.equal(inputStream: InputStream) = IOUtils.contentEquals(this, inputStream)
-}
+fun InputStream.equal(inputStream: InputStream) = IOUtils.contentEquals(this, inputStream)
