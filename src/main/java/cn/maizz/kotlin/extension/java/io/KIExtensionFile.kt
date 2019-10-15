@@ -74,7 +74,7 @@ fun File.deleteIfExist(): Boolean = if (exists()) delete() else true
 /**
  * 清空整个文件夹，包含子目录
  */
-fun File.clear() = FileUtils.cleanDirectory(this)
+fun File.clear(): Unit = FileUtils.cleanDirectory(this)
 
 /**
  * 文件不存在
@@ -89,7 +89,7 @@ fun File.lastModifiedTime(): Date = Date(this.lastModified())
 /**
  * 创建所给文件或目录的父目录
  */
-fun File.mkdirParent() = this.parentFile?.mkdirs()
+fun File.mkdirParent(): Boolean = this.parentFile?.mkdirs() ?: false
 
 /**
  * 复制文件
@@ -99,7 +99,7 @@ fun File.mkdirParent() = this.parentFile?.mkdirs()
  *
  * @see FileUtils.copyFile
  */
-fun File.copy(dest: File, date: Boolean = true) = FileUtils.copyFile(this, dest, date)
+fun File.copy(dest: File, date: Boolean = true): Unit = FileUtils.copyFile(this, dest, date)
 
 /**
  * 复制文件
@@ -107,7 +107,7 @@ fun File.copy(dest: File, date: Boolean = true) = FileUtils.copyFile(this, dest,
  * @param outputStream
  *
  */
-fun File.copy(outputStream: OutputStream) = FileUtils.copyFile(this, outputStream)
+fun File.copy(outputStream: OutputStream): Long = FileUtils.copyFile(this, outputStream)
 
 /**
  * 作为文件夹进行复制
@@ -116,7 +116,7 @@ fun File.copy(outputStream: OutputStream) = FileUtils.copyFile(this, outputStrea
  *
  * @see FileUtils.copyDirectory
  */
-fun File.copyAsDirectory(dest: File, date: Boolean = true) = FileUtils.copyDirectory(this, dest, date)
+fun File.copyAsDirectory(dest: File, date: Boolean = true): Unit = FileUtils.copyDirectory(this, dest, date)
 
 /**
  * 将文件移动到另外一个地方
@@ -125,7 +125,7 @@ fun File.copyAsDirectory(dest: File, date: Boolean = true) = FileUtils.copyDirec
  *
  * @see FileUtils.moveFile
  */
-fun File.move(dest: File) = FileUtils.moveFile(this, dest)
+fun File.move(dest: File): Unit = FileUtils.moveFile(this, dest)
 
 /**
  * 移动到目录
@@ -135,7 +135,7 @@ fun File.move(dest: File) = FileUtils.moveFile(this, dest)
  *
  * @see FileUtils.moveFileToDirectory
  */
-fun File.moveToDirectory(destDir: File, createDestDir: Boolean = true) = FileUtils.moveFileToDirectory(this, destDir, createDestDir)
+fun File.moveToDirectory(destDir: File, createDestDir: Boolean = true): Unit = FileUtils.moveFileToDirectory(this, destDir, createDestDir)
 
 /**
  * 写入文件行
@@ -145,4 +145,4 @@ fun File.moveToDirectory(destDir: File, createDestDir: Boolean = true) = FileUti
  *
  * @see FileUtils.writeStringToFile
  */
-fun File.writeLines(collection: Collection<*>, encoding: Charset = Charset.forName("UTF-8")) = FileUtils.writeLines(this, encoding.displayName(), collection)
+fun File.writeLines(collection: Collection<*>, encoding: Charset = Charset.forName("UTF-8")): Unit = FileUtils.writeLines(this, encoding.displayName(), collection)

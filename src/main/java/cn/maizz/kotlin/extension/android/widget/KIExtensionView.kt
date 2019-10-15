@@ -17,20 +17,14 @@
 
 package cn.maizz.kotlin.extension.android.widget
 
-import android.annotation.TargetApi
-import android.content.ClipData
-import android.content.ClipboardManager
 import android.content.Context
-import android.os.Build
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import cn.maizz.kotlin.extension.android.content.getClipboardString
+import cn.maizz.kotlin.extension.android.content.setClipboardString
 
-fun View.showSoftInput(flags: Int = InputMethodManager.SHOW_IMPLICIT) = (this.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager).showSoftInput(this, flags)
+fun View.showSoftInput(flags: Int = InputMethodManager.SHOW_IMPLICIT): Boolean = (this.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager).showSoftInput(this, flags)
 
-fun View.getClipboardString() = (this.context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager).primaryClip?.let { return@let if (it.itemCount > 0) it.getItemAt(0).text else null }
+fun View.getClipboardString(): CharSequence? = this.context.getClipboardString()
 
-fun View.setClipboardString(text: CharSequence, label: CharSequence? = null) = (this.context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager).setPrimaryClip(ClipData.newPlainText(label, text))
-
-@TargetApi(Build.VERSION_CODES.JELLY_BEAN)
-@Suppress("UsePropertyAccessSyntax")
-fun View.setClipboardHtmlText(text: CharSequence, htmlText: String, label: CharSequence? = null) = (this.context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager).setPrimaryClip(ClipData.newHtmlText(label, text, htmlText))
+fun View.setClipboardString(text: CharSequence, label: CharSequence? = null): Unit = this.context.setClipboardString(text, label)

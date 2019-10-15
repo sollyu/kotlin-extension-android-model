@@ -20,7 +20,6 @@ package cn.maizz.kotlin.extension.android.content
 import android.content.SharedPreferences
 import org.json.JSONObject
 
-
 /**
  * 判断配置是否存在
  */
