@@ -183,6 +183,6 @@ fun Context.px2sp(pxValue: Float): Int = (pxValue / resources.displayMetrics.sca
  */
 fun Context.toast(text: CharSequence, duration: Int = Toast.LENGTH_LONG): Unit = Toast.makeText(this, text, duration).show()
 
-fun Context.startActivity(activity: Activity, vararg flag: Int = intArrayOf(Intent.FLAG_ACTIVITY_NEW_TASK)): Unit = this.startActivity(Intent(this, Context::class.java).apply { flag.forEach { this.addFlags(it) } })
+fun Context.startActivity(activity: Activity, vararg flag: Int = intArrayOf(Intent.FLAG_ACTIVITY_NEW_TASK)): Unit = this.startActivity(Intent(this, activity::class.java).apply { flag.forEach { this.addFlags(it) } })
 
 fun Context.startActivity(action: String, uri: Uri, vararg flag: Int = intArrayOf(Intent.FLAG_ACTIVITY_NEW_TASK)): Unit = this.startActivity(Intent(action, uri).apply { flag.forEach { this.addFlags(it) } })
