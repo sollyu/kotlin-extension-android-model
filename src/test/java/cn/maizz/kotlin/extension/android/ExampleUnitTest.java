@@ -17,6 +17,7 @@
 
 package cn.maizz.kotlin.extension.android;
 
+
 import org.junit.Test;
 
 import static org.junit.Assert.*;

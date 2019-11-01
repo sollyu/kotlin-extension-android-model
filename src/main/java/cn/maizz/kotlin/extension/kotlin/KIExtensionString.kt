@@ -18,8 +18,10 @@
 package cn.maizz.kotlin.extension.kotlin
 
 import android.util.Base64
+import org.apache.commons.codec.binary.Hex
+import org.apache.commons.codec.digest.DigestUtils
+import java.io.File
 import java.nio.charset.Charset
-import java.security.MessageDigest
 import java.util.*
 import java.util.regex.Pattern
 
@@ -59,10 +61,28 @@ fun String.base64Decode(charset: Charset = Charsets.UTF_8, flag: Int = Base64.NO
 
 /**
  * MD5
- *
- * @param charset 字符集
  */
-fun String.md5(charset: Charset = Charsets.UTF_8): String = MessageDigest.getInstance("MD5").digest(this.toByteArray(charset)).joinToString("") { String.format("%02x", it) }
+fun String.md5(charset: Charset = Charsets.UTF_8): String = String(Hex.encodeHex(DigestUtils.md5(this.toByteArray(charset))))
+
+/**
+ * 计算文件sha1
+ */
+fun String.sha1(charset: Charset = Charsets.UTF_8): String = String(Hex.encodeHex(DigestUtils.sha1(this.toByteArray(charset))))
+
+/**
+ * 计算文件的sha256
+ */
+fun String.sha256(charset: Charset = Charsets.UTF_8): String = String(Hex.encodeHex(DigestUtils.sha256(this.toByteArray(charset))))
+
+/**
+ * 计算文件的sha384
+ */
+fun String.sha384(charset: Charset = Charsets.UTF_8): String = String(Hex.encodeHex(DigestUtils.sha384(this.toByteArray(charset))))
+
+/**
+ * 计算文件的sha512
+ */
+fun String.sha512(charset: Charset = Charsets.UTF_8): String = String(Hex.encodeHex(DigestUtils.sha512(this.toByteArray(charset))))
 
 /**
  * 使用当前字符集进行随机
@@ -86,3 +106,8 @@ fun String.isEmailValid(): Boolean = Pattern.compile("^\\w+@\\w+\\.\\w{2,}\$").m
  * 判断是否一个中国手机号码
  */
 fun String.isPhoneNumber(): Boolean = Pattern.compile("^((13[0-9])|(15[^4])|(18[0-9])|(17[0-8])|(14[5-9])|(166)|(19[8,9])|)\\d{8}$").matcher(this).matches()
+
+/**
+ * 当作一个File对象
+ */
+fun String.asFile(): File = File(this)

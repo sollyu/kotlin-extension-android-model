@@ -48,7 +48,27 @@ class KIExtensionStringKtTest {
 
     @Test
     fun md5() {
-        Assert.assertEquals("admin".md5(), "21232f297a57a5a743894a0e4a801fc3")
+        Assert.assertEquals("i love china.".md5(), "cc5c5b6d68923ce66b057544ed0e7f05")
+    }
+
+    @Test
+    fun sha1() {
+        Assert.assertEquals("i love china.".sha1(), "30a787a42cf34d42bc0dc0a11b2ceed238cf7923")
+    }
+
+    @Test
+    fun sha256() {
+        Assert.assertEquals("i love china.".sha256(), "b2f5eb0e7264a911f0fd4358cced924a0140ecf5d57e1ee717f18782134da2c3")
+    }
+
+    @Test
+    fun sha384() {
+        Assert.assertEquals("i love china.".sha384(), "573cea0e961369e843ee0a9ebfe7b858e90d2c7ce3a4aa237b50743e9831f958e5aa5e644dc861813b282d27fc9bdfcf")
+    }
+
+    @Test
+    fun sha512() {
+        Assert.assertEquals("i love china.".sha512(), "dd24e441aeda8e61c7a10ab96fbc0379827c2d4d38338bb373712343df3144df08593944d05d458e1b09d7cbca2eca895b8dfd2b476c162527686f5a671608b1")
     }
 
     @Test
@@ -80,5 +100,10 @@ class KIExtensionStringKtTest {
         Assert.assertFalse("188888888888".isEmailValid())
         Assert.assertFalse("+8618888888888".isEmailValid())
         Assert.assertFalse("a8888888888".isEmailValid())
+    }
+
+    @Test
+    fun asFile() {
+        "/tmp/test".asFile()
     }
 }

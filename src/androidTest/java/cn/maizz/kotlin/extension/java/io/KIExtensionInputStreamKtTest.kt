@@ -60,4 +60,33 @@ class KIExtensionInputStreamKtTest {
         val fileInputStream2: FileInputStream = FileInputStream(targetFile)
         Assert.assertTrue(fileInputStream1.equal(fileInputStream2))
     }
+
+    @Test
+    fun copy() {
+        targetFile.parentFile?.clear()
+        targetFile.mkdirParent()
+        Assert.assertEquals(targetFile.list()?.size ?: 0, 0)
+
+        val srcFile = File(targetFile.parentFile, "test1.txt")
+        val desFile = File(targetFile.parentFile, "test2.txt")
+        Assert.assertTrue(desFile.notExists())
+
+        srcFile.writeStringToFile(fileContent, charset)
+
+        FileInputStream(srcFile).copy(desFile)
+
+        Assert.assertTrue(desFile.exists())
+        Assert.assertEquals(desFile.readAsText(charset), fileContent)
+    }
+
+    @Test
+    fun readLines() {
+        targetFile.deleteIfExist()
+
+        val writeLines: ArrayList<String> = arrayListOf(fileContent, fileContent, fileContent)
+        targetFile.writeLines(writeLines, charset)
+        Assert.assertArrayEquals(targetFile.readLines(charset).toTypedArray(), writeLines.toTypedArray())
+
+        Assert.assertArrayEquals(FileInputStream(targetFile).readLines(charset).toTypedArray(), writeLines.toTypedArray())
+    }
 }

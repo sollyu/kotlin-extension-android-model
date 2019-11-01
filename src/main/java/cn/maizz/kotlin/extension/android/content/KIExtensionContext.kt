@@ -19,6 +19,7 @@ package cn.maizz.kotlin.extension.android.content
 
 import android.annotation.SuppressLint
 import android.annotation.TargetApi
+import android.app.Activity
 import android.app.usage.UsageStatsManager
 import android.content.ClipData
 import android.content.ClipboardManager
@@ -31,6 +32,9 @@ import android.net.Uri
 import android.os.Build
 import android.provider.Settings
 import android.telephony.TelephonyManager
+import android.util.DisplayMetrics
+import android.view.WindowManager
+import android.widget.Toast
 import java.io.File
 import java.util.concurrent.TimeUnit
 
@@ -59,42 +63,47 @@ fun Context.getSystemString(name: String, default: String = ""): String = Settin
  * 打开一个已经存在的APP
  * @param packageName APP包名
  */
-fun Context.launchAppByPackage(packageName: String) = this.startActivity(this.packageManager.getLaunchIntentForPackage(packageName))
+fun Context.launchAppByPackage(packageName: String): Unit = this.startActivity(this.packageManager.getLaunchIntentForPackage(packageName))
 
 /**
  * 跳转到手机中存在的市场中
  * @param packageName APP包名
  */
-fun Context.gotoMarket(packageName: String) = this.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=$packageName")).apply { this.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK) })
+fun Context.gotoMarket(packageName: String): Unit = this.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=$packageName")).apply { this.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK) })
 
 /**
  * 跳转到设置的使用软件详情
  */
 @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-fun Context.gotoUsageAccessSettings() = this.startActivity(Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS).apply { this.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK) })
+fun Context.gotoUsageAccessSettings(): Unit = this.startActivity(Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS).apply { this.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK) })
 
 /**
  * 跳转到软件的设置界面
  * @param packageName APP包名
  */
-fun Context.gotoAppDetailsSettings(packageName: String) = this.startActivity(Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS).apply { this.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK); this.data = Uri.parse("package:$packageName") })
+fun Context.gotoAppDetailsSettings(packageName: String): Unit = this.startActivity(Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS).apply { this.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK); this.data = Uri.parse("package:$packageName") })
+
+/**
+ * 打开[无障碍]设置界面
+ */
+fun Context.gotoAccessibilitySettings(): Unit = this.startActivity(Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
 
 /**
  * 跳转到手机默认桌面
  */
-fun Context.gotoHome() = this.startActivity(Intent(Intent.ACTION_MAIN).apply { this.addCategory(Intent.CATEGORY_HOME) })
+fun Context.gotoHome(): Unit = this.startActivity(Intent(Intent.ACTION_MAIN).apply { this.addCategory(Intent.CATEGORY_HOME) })
 
 /**
  * 使用浏览器打开一个URL
  * @param url 要打开的网址
  */
-fun Context.gotoUrl(url: String) = this.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
+fun Context.gotoUrl(url: String): Unit = this.startActivity(Intent.ACTION_VIEW, Uri.parse(url))
 
 /**
  * 使用浏览器打开一个URL
  * @param uri 要打开的网址
  */
-fun Context.gotoUrl(uri: Uri) = this.startActivity(Intent(Intent.ACTION_VIEW, uri))
+fun Context.gotoUrl(uri: Uri): Unit = this.startActivity(Intent.ACTION_VIEW, uri)
 
 /**
  * 获取当前手机已经安装的应用列表
@@ -114,34 +123,34 @@ fun Context.getApplicationInfo(packageName: String, flags: Int = 0): Application
 /**
  * 获取已经安装的软件签名
  */
-@Suppress("DEPRECATION")
-@SuppressLint("PackageManagerGetSignatures")
+@Suppress(names = ["DEPRECATION"])
+@SuppressLint(value = ["PackageManagerGetSignatures"])
 fun Context.getApplicationSignature(packageName: String): Signature = this.packageManager.getPackageInfo(packageName, PackageManager.GET_SIGNATURES).signatures[0]
 
 /**
  * 获取一个已经下载的APK文件的签名
  */
-@Suppress("DEPRECATION")
-@SuppressLint("PackageManagerGetSignatures")
+@Suppress(names = ["DEPRECATION"])
+@SuppressLint(value = ["PackageManagerGetSignatures"])
 fun Context.getPackageSignature(apkFile: File): Signature? = this.packageManager.getPackageArchiveInfo(apkFile.path, PackageManager.GET_SIGNATURES)?.signatures?.get(0)
 
 /**
  * 获取剪贴板的内容
  */
-fun Context.getClipboardString() = (this.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager).primaryClip?.let { return@let if (it.itemCount > 0) it.getItemAt(0).text else null }
+fun Context.getClipboardString(): CharSequence? = (this.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager).primaryClip?.let { return@let if (it.itemCount > 0) it.getItemAt(0).text else null }
 
 /**
  * 设置剪贴板的内容
  */
-@Suppress("UsePropertyAccessSyntax")
-fun Context.setClipboardString(text: CharSequence, label: CharSequence? = null) = (this.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager).setPrimaryClip(ClipData.newPlainText(label, text))
+@Suppress(names = ["UsePropertyAccessSyntax"])
+fun Context.setClipboardString(text: CharSequence, label: CharSequence? = null): Unit = (this.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager).setPrimaryClip(ClipData.newPlainText(label, text))
 
 /**
  * 设置剪贴板的内容
  */
 @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
-@Suppress("UsePropertyAccessSyntax")
-fun Context.setClipboardHtmlText(text: CharSequence, htmlText: String, label: CharSequence? = null) = (this.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager).setPrimaryClip(ClipData.newHtmlText(label, text, htmlText))
+@Suppress(names = ["UsePropertyAccessSyntax"])
+fun Context.setClipboardHtmlText(text: CharSequence, htmlText: String, label: CharSequence? = null): Unit = (this.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager).setPrimaryClip(ClipData.newHtmlText(label, text, htmlText))
 
 /**
  * dp转换成px
@@ -155,18 +164,42 @@ fun Context.dp2px(dpValue: Int): Int = (resources.displayMetrics.density * dpVal
  * @param spValue sp值
  * @return sp转px 的数值
  */
-fun Context.sp2px(spValue: Float) = ((spValue - 0.5f) * resources.displayMetrics.scaledDensity).toInt()
+fun Context.sp2px(spValue: Float): Int = ((spValue - 0.5f) * resources.displayMetrics.scaledDensity).toInt()
 
 /**
  * px转dp
  * @param px 像素值
  * @return dp
  */
-fun Context.px2dp(pxValue: Float) = (pxValue / resources.displayMetrics.density + 0.5F).toInt()
+fun Context.px2dp(pxValue: Float): Int = (pxValue / resources.displayMetrics.density + 0.5F).toInt()
 
 /**
  * px转sp
  * @param pxValue 像素值
  * @return sp
  */
-fun Context.px2sp(pxValue: Float) = (pxValue / resources.displayMetrics.scaledDensity + 0.5F).toInt()
+fun Context.px2sp(pxValue: Float): Int = (pxValue / resources.displayMetrics.scaledDensity + 0.5F).toInt()
+
+/**
+ * 显示一个Toast
+ *
+ * @param text 内容
+ * @param duration 时常
+ *
+ * @see Toast.makeText
+ */
+fun Context.toast(text: CharSequence, duration: Int = Toast.LENGTH_LONG): Unit = Toast.makeText(this, text, duration).show()
+
+fun Context.startActivity(activity: Activity, vararg flag: Int = intArrayOf(Intent.FLAG_ACTIVITY_NEW_TASK)): Unit = this.startActivity(Intent(this, activity::class.java).apply { flag.forEach { this.addFlags(it) } })
+
+fun Context.startActivity(action: String, uri: Uri, vararg flag: Int = intArrayOf(Intent.FLAG_ACTIVITY_NEW_TASK)): Unit = this.startActivity(Intent(action, uri).apply { flag.forEach { this.addFlags(it) } })
+
+/**
+ * 便捷获取DisplayMetrics对象
+ */
+fun Context.getMetrics(): DisplayMetrics {
+    val windowManager: WindowManager = this.getSystemService(Context.WINDOW_SERVICE) as WindowManager
+    val displayMetrics: DisplayMetrics = DisplayMetrics()
+    windowManager.defaultDisplay.getMetrics(displayMetrics)
+    return displayMetrics
+}

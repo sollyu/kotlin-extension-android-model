@@ -18,13 +18,24 @@
 package cn.maizz.kotlin.extension.java.io
 
 import org.apache.commons.io.IOUtils
+import java.io.File
+import java.io.FileOutputStream
 import java.io.InputStream
+import java.io.OutputStream
 import java.nio.charset.Charset
 
-fun InputStream.toString(encoding: Charset) = IOUtils.toString(this, encoding)!!
+fun InputStream.toString(encoding: Charset): String = IOUtils.toString(this, encoding)!!
 
-fun InputStream.toByteArray() = IOUtils.toByteArray(this)!!
+fun InputStream.toByteArray(): ByteArray = IOUtils.toByteArray(this)!!
 
-fun InputStream.toCharArray(encoding: Charset = Charset.forName("UTF-8")) = IOUtils.toCharArray(this, encoding)!!
+fun InputStream.toCharArray(encoding: Charset = Charset.forName("UTF-8")): CharArray = IOUtils.toCharArray(this, encoding)!!
 
-fun InputStream.equal(inputStream: InputStream) = IOUtils.contentEquals(this, inputStream)
+fun InputStream.equal(inputStream: InputStream): Boolean = IOUtils.contentEquals(this, inputStream)
+
+fun InputStream.readLines(encoding: Charset = Charset.forName("UTF-8")): List<String> = IOUtils.readLines(this, encoding)
+
+fun InputStream.copy(outputStream: OutputStream): Int = IOUtils.copy(this, outputStream)
+
+fun InputStream.copy(file: File): Int = copy(FileOutputStream(file))
+
+fun InputStream.copyLarge(outputStream: OutputStream, inputOffset: Long, length: Long): Long = IOUtils.copyLarge(this, outputStream, inputOffset, length)
