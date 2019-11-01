@@ -32,6 +32,8 @@ import android.net.Uri
 import android.os.Build
 import android.provider.Settings
 import android.telephony.TelephonyManager
+import android.util.DisplayMetrics
+import android.view.WindowManager
 import android.widget.Toast
 import java.io.File
 import java.util.concurrent.TimeUnit
@@ -80,6 +82,11 @@ fun Context.gotoUsageAccessSettings(): Unit = this.startActivity(Intent(Settings
  * @param packageName APP包名
  */
 fun Context.gotoAppDetailsSettings(packageName: String): Unit = this.startActivity(Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS).apply { this.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK); this.data = Uri.parse("package:$packageName") })
+
+/**
+ * 打开[无障碍]设置界面
+ */
+fun Context.gotoAccessibilitySettings(): Unit = this.startActivity(Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
 
 /**
  * 跳转到手机默认桌面
@@ -186,3 +193,13 @@ fun Context.toast(text: CharSequence, duration: Int = Toast.LENGTH_LONG): Unit =
 fun Context.startActivity(activity: Activity, vararg flag: Int = intArrayOf(Intent.FLAG_ACTIVITY_NEW_TASK)): Unit = this.startActivity(Intent(this, activity::class.java).apply { flag.forEach { this.addFlags(it) } })
 
 fun Context.startActivity(action: String, uri: Uri, vararg flag: Int = intArrayOf(Intent.FLAG_ACTIVITY_NEW_TASK)): Unit = this.startActivity(Intent(action, uri).apply { flag.forEach { this.addFlags(it) } })
+
+/**
+ * 便捷获取DisplayMetrics对象
+ */
+fun Context.getMetrics(): DisplayMetrics {
+    val windowManager: WindowManager = this.getSystemService(Context.WINDOW_SERVICE) as WindowManager
+    val displayMetrics: DisplayMetrics = DisplayMetrics()
+    windowManager.defaultDisplay.getMetrics(displayMetrics)
+    return displayMetrics
+}

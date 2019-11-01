@@ -22,9 +22,14 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import cn.maizz.kotlin.extension.android.content.getClipboardString
 import cn.maizz.kotlin.extension.android.content.setClipboardString
+import java.util.concurrent.TimeUnit
 
 fun View.showSoftInput(flags: Int = InputMethodManager.SHOW_IMPLICIT): Boolean = (this.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager).showSoftInput(this, flags)
 
 fun View.getClipboardString(): CharSequence? = this.context.getClipboardString()
 
 fun View.setClipboardString(text: CharSequence, label: CharSequence? = null): Unit = this.context.setClipboardString(text, label)
+
+fun View.postDelayed(duration: Long, timeUnit: TimeUnit, callback: () -> Unit): Boolean = postDelayed(callback, timeUnit.toMillis(duration))
+
+fun View.postDelayed(duration: Long, timeUnit: TimeUnit, runnable: Runnable): Boolean = postDelayed(runnable, timeUnit.toMillis(duration))
