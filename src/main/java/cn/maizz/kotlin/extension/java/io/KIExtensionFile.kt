@@ -77,6 +77,15 @@ fun File.deleteIfExist(): Boolean = if (exists()) delete() else true
 fun File.clear(): Unit = FileUtils.cleanDirectory(this)
 
 /**
+ * 删除文件夹，包含文件夹本身
+ *
+ * @since 1.0.2
+ *
+ * TODO: 补充测试用例
+ */
+fun File.deleteDirectory(): Unit = FileUtils.deleteDirectory(this)
+
+/**
  * 文件不存在
  */
 fun File.notExists(): Boolean = this.exists().not()
