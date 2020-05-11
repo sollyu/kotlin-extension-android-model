@@ -17,7 +17,9 @@
 
 package cn.maizz.kotlin.extension.kotlin
 
-import java.security.MessageDigest
+import org.apache.commons.codec.binary.Hex
+import org.apache.commons.codec.digest.DigestUtils
+import java.io.File
 
 
 /**
@@ -28,4 +30,46 @@ fun ByteArray.toStringHex(): String = this.joinToString(separator = "") { it.toI
 /**
  * 计算MD5值
  */
-fun ByteArray.md5(): String = MessageDigest.getInstance("MD5").digest(this).joinToString("") { String.format("%02x", it) }
+fun ByteArray.md5(): String = String(Hex.encodeHex(DigestUtils.md5(this)))
+
+/**
+ * 计算SHA1值
+ * @since 1.0.2
+ * TODO: 补充测试用例
+ */
+fun ByteArray.sha1(): String = String(Hex.encodeHex(DigestUtils.sha1(this)))
+
+/**
+ * 计算文件的sha256
+ * @since 1.0.2
+ * TODO: 补充测试用例
+ */
+fun ByteArray.sha256(): String = String(Hex.encodeHex(DigestUtils.sha256(this)))
+
+/**
+ * 计算文件的sha384
+ * @since 1.0.2
+ * TODO: 补充测试用例
+ */
+fun ByteArray.sha384(): String = String(Hex.encodeHex(DigestUtils.sha384(this)))
+
+/**
+ * 计算文件的sha512
+ *
+ * TODO: 补充测试用例
+ * @since 1.0.2
+ */
+fun ByteArray.sha512(): String = String(Hex.encodeHex(DigestUtils.sha512(this)))
+
+/**
+ * 写入到文件
+ *
+ * @param file 文件
+ * @param append 是否追加写入
+ *
+ * @see File.writeBytes
+ * @since 1.0.2
+ *
+ * TODO: 补充测试用例
+ */
+fun ByteArray.write(file: File, append: Boolean = false): Unit = if (append) file.appendBytes(array = this) else file.writeBytes(array = this)
