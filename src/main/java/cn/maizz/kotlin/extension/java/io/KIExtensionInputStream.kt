@@ -28,11 +28,11 @@ fun InputStream.toString(encoding: Charset): String = IOUtils.toString(this, enc
 
 fun InputStream.toByteArray(): ByteArray = IOUtils.toByteArray(this)!!
 
-fun InputStream.toCharArray(encoding: Charset = Charset.forName("UTF-8")): CharArray = IOUtils.toCharArray(this, encoding)!!
+fun InputStream.toCharArray(encoding: Charset = Charsets.UTF_8): CharArray = IOUtils.toCharArray(this, encoding)!!
 
 fun InputStream.equal(inputStream: InputStream): Boolean = IOUtils.contentEquals(this, inputStream)
 
-fun InputStream.readLines(encoding: Charset = Charset.forName("UTF-8")): List<String> = IOUtils.readLines(this, encoding)
+fun InputStream.readLines(encoding: Charset = Charsets.UTF_8): List<String> = IOUtils.readLines(this, encoding)
 
 fun InputStream.copy(outputStream: OutputStream): Int = IOUtils.copy(this, outputStream)
 
