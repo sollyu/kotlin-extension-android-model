@@ -154,4 +154,4 @@ fun File.moveToDirectory(destDir: File, createDestDir: Boolean = true): Unit = F
  *
  * @see FileUtils.writeStringToFile
  */
-fun File.writeLines(collection: Collection<*>, encoding: Charset = Charset.forName("UTF-8")): Unit = FileUtils.writeLines(this, encoding.displayName(), collection)
+fun File.writeLines(collection: Collection<*>, encoding: Charset = Charsets.UTF_8): Unit = FileUtils.writeLines(this, encoding.displayName(), collection)
