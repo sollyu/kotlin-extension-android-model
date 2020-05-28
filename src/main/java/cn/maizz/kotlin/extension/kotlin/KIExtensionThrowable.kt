@@ -20,10 +20,6 @@ package cn.maizz.kotlin.extension.kotlin
 import java.util.*
 
 /**
- * 异常信息国际化
- */
-
-/**
  * 调用国际化语言
  *
  * 备注：
