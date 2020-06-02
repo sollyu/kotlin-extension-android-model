@@ -17,6 +17,7 @@
 
 package cn.maizz.kotlin.extension.kotlin
 
+import org.apache.commons.codec.binary.Base64
 import org.apache.commons.codec.binary.Hex
 import org.apache.commons.codec.digest.DigestUtils
 import java.io.File
@@ -25,33 +26,48 @@ import java.io.File
 /**
  * 转换成16进制字符串
  */
-fun ByteArray.toStringHex(): String = this.joinToString(separator = "") { it.toInt().and(0xff).toString(16).padStart(2, '0') }
+fun ByteArray.toStringHex(): String = String(Hex.encodeHex(this))
+
+/**
+ * 编码
+ *
+ * @since 1.0.2
+ */
+fun ByteArray.base64Encode():ByteArray = Base64.encodeBase64(this)
+
+/**
+ * 解码
+ *
+ * @since 1.0.2
+ */
+fun ByteArray.base64Decode():ByteArray = Base64.decodeBase64(this)
+
 
 /**
  * 计算MD5值
  */
-fun ByteArray.md5(): String = String(Hex.encodeHex(DigestUtils.md5(this)))
+fun ByteArray.md5(): ByteArray = DigestUtils.md5(this)
 
 /**
  * 计算SHA1值
  * @since 1.0.2
  * TODO: 补充测试用例
  */
-fun ByteArray.sha1(): String = String(Hex.encodeHex(DigestUtils.sha1(this)))
+fun ByteArray.sha1(): ByteArray = DigestUtils.sha1(this)
 
 /**
  * 计算文件的sha256
  * @since 1.0.2
  * TODO: 补充测试用例
  */
-fun ByteArray.sha256(): String = String(Hex.encodeHex(DigestUtils.sha256(this)))
+fun ByteArray.sha256(): ByteArray = DigestUtils.sha256(this)
 
 /**
  * 计算文件的sha384
  * @since 1.0.2
  * TODO: 补充测试用例
  */
-fun ByteArray.sha384(): String = String(Hex.encodeHex(DigestUtils.sha384(this)))
+fun ByteArray.sha384(): ByteArray = DigestUtils.sha384(this)
 
 /**
  * 计算文件的sha512
@@ -59,7 +75,7 @@ fun ByteArray.sha384(): String = String(Hex.encodeHex(DigestUtils.sha384(this)))
  * TODO: 补充测试用例
  * @since 1.0.2
  */
-fun ByteArray.sha512(): String = String(Hex.encodeHex(DigestUtils.sha512(this)))
+fun ByteArray.sha512(): ByteArray = DigestUtils.sha512(this)
 
 /**
  * 写入到文件

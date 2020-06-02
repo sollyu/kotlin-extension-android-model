@@ -23,3 +23,4 @@ fun Byte.setBitValue(value: Byte, position: Int): Byte = ((value.toInt() shl pos
 fun Byte.toBit(): String =
     ((this.toInt() shr 7) and 0x1).toString() + ((this.toInt() shr 6) and 0x1).toString() + ((this.toInt() shr 5) and 0x1).toString() + ((this.toInt() shr 4) and 0x1).toString() +
             ((this.toInt() shr 3) and 0x1).toString() + ((this.toInt() shr 2) and 0x1).toString() + ((this.toInt() shr 1) and 0x1).toString() + ((this.toInt() shr 0) and 0x1).toString()
+

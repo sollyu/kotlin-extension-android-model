@@ -24,11 +24,26 @@ class KIExtensionByteArrayKtTest {
 
     @Test
     fun toStringHex() {
-        Assert.assertEquals(byteArrayOf(12, 32, 43).toStringHex(), "0c202b")
+        Assert.assertEquals("0c202b", byteArrayOf(12, 32, 43).toStringHex())
     }
 
     @Test
     fun md5() {
-        Assert.assertEquals(byteArrayOf(12, 32, 43).md5(), "d0f034d30f1ad53d36f6d30d18a413fe")
+        Assert.assertEquals("d0f034d30f1ad53d36f6d30d18a413fe".toByteArray(), byteArrayOf(12, 32, 43).md5())
+    }
+
+    @Test
+    fun base64Encode() {
+        Assert.assertArrayEquals("YWRtaW4=".toByteArray(), "admin".toByteArray().base64Encode())
+    }
+
+    @Test
+    fun base64Decode() {
+        Assert.assertArrayEquals("admin".toByteArray(), "YWRtaW4=".toByteArray().base64Decode())
+    }
+
+    @Test
+    fun sha1() {
+        Assert.assertEquals("d033e22ae348aeb5660fc2140aec35850c4da997", "admin".toByteArray().sha1().toStringHex())
     }
 }
