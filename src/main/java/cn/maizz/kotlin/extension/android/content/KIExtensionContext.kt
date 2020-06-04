@@ -106,6 +106,28 @@ fun Context.gotoUrl(url: String): Unit = this.startActivity(Intent.ACTION_VIEW, 
 fun Context.gotoUrl(uri: Uri): Unit = this.startActivity(Intent.ACTION_VIEW, uri)
 
 /**
+ * 将一个apk文件安装
+ *
+ * @since 1.0.2
+ */
+fun Context.gotoApkInstaller(apkFile: File) {
+    val intent: Intent = Intent()
+    val apkUri: Uri = Uri.fromFile(apkFile)
+    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+    intent.setDataAndType(apkUri, "application/vnd.android.package-archive")
+    this.startActivity(intent)
+}
+
+/**
+ * 弹出卸载app提示
+ *
+ * 需要 <font color=red>android.permission.REQUEST_DELETE_PACKAGES</font> 权限
+ *
+ * @since 1.0.2
+ */
+fun Context.showUninstallDialog(packageName: String): Unit = this.startActivity(Intent(Intent.ACTION_DELETE, Uri.fromParts("package", packageName, null)))
+
+/**
  * 获取当前手机已经安装的应用列表
  */
 fun Context.installedPackageList(): MutableList<ApplicationInfo> = this.packageManager.getInstalledApplications(0)
