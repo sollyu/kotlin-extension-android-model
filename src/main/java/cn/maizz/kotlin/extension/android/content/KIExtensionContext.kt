@@ -26,6 +26,7 @@ import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
 import android.content.pm.ApplicationInfo
+import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
 import android.content.pm.Signature
 import android.net.Uri
@@ -129,13 +130,22 @@ fun Context.showUninstallDialog(packageName: String): Unit = this.startActivity(
 
 /**
  * 获取当前手机已经安装的应用列表
+ *
+ * @since 1.0.2
  */
-fun Context.installedPackageList(): MutableList<ApplicationInfo> = this.packageManager.getInstalledApplications(0)
+fun Context.getInstalledApplications(flags: Int = 0): MutableList<ApplicationInfo> = this.packageManager.getInstalledApplications(flags)
+
+/**
+ * 获取当前手机已经安装的应用列表
+ *
+ * @since 1.0.2
+ */
+fun Context.getInstalledPackages(flags: Int = 0): List<PackageInfo> = this.packageManager.getInstalledPackages(flags)
 
 /**
  * 判断软件是否安装
  */
-fun Context.isPackageInstalled(packageName: String): Boolean = this.installedPackageList().any { it.packageName == packageName }
+fun Context.isPackageInstalled(packageName: String): Boolean = this.getInstalledApplications().any { it.packageName == packageName }
 
 /**
  * 获取单独一个软件的详细信息
