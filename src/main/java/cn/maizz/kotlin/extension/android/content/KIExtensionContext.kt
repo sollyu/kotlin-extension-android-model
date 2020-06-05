@@ -154,13 +154,17 @@ fun Context.getApplicationInfo(packageName: String, flags: Int = 0): Application
 
 /**
  * 获取已经安装的软件签名
+ *
+ * @since 1.0.2
  */
 @Suppress(names = ["DEPRECATION"])
 @SuppressLint(value = ["PackageManagerGetSignatures"])
-fun Context.getApplicationSignature(packageName: String): Array<Signature> = this.packageManager.getPackageInfo(packageName, PackageManager.GET_SIGNATURES).signatures
+fun Context.getPackageSignature(packageName: String): Array<Signature> = this.packageManager.getPackageInfo(packageName, PackageManager.GET_SIGNATURES).signatures
 
 /**
  * 获取一个已经下载的APK文件的签名
+ *
+ * @since 1.0.0
  */
 @Suppress(names = ["DEPRECATION"])
 @SuppressLint(value = ["PackageManagerGetSignatures"])
