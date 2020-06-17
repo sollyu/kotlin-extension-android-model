@@ -23,6 +23,7 @@ import org.apache.commons.codec.digest.DigestUtils
 import java.io.File
 import java.nio.charset.Charset
 import java.util.*
+import java.util.regex.Matcher
 import java.util.regex.Pattern
 
 /**
@@ -111,3 +112,17 @@ fun String.isPhoneNumber(): Boolean = Pattern.compile("^((13[0-9])|(15[^4])|(18[
  * 当作一个File对象
  */
 fun String.asFile(): File = File(this)
+
+/**
+ * 返回一个 machter 对象
+ *
+ * @since 1.0.2
+ */
+fun String.matcher(pattern: String, option: RegexOption = RegexOption.MULTILINE): Matcher = Regex(pattern, option).toPattern().matcher(this)
+
+/**
+ * 返回一个 machter 对象
+ *
+ * @since 1.0.2
+ */
+fun String.matcher(regex: Regex): Matcher = regex.toPattern().matcher(this)

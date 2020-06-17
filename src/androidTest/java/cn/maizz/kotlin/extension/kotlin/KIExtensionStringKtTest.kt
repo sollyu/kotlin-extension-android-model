@@ -106,4 +106,11 @@ class KIExtensionStringKtTest {
     fun asFile() {
         "/tmp/test".asFile()
     }
+
+    @Test
+    fun matcher() {
+        Assert.assertEquals("123".matcher("\\d+").find(), true)
+        Assert.assertEquals("china".matcher("\\d+").find(), false)
+        Assert.assertEquals("123".matcher(Regex(pattern = "\\d+")).find(), true)
+    }
 }

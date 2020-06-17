@@ -29,7 +29,7 @@ class KIExtensionByteArrayKtTest {
 
     @Test
     fun md5() {
-        Assert.assertEquals("d0f034d30f1ad53d36f6d30d18a413fe".toByteArray(), byteArrayOf(12, 32, 43).md5())
+        Assert.assertEquals("d0f034d30f1ad53d36f6d30d18a413fe", byteArrayOf(12, 32, 43).md5().toStringHex())
     }
 
     @Test
