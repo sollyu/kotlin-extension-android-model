@@ -20,11 +20,12 @@ package cn.maizz.kotlin.extension.kotlin
 import android.util.Base64
 import org.apache.commons.codec.binary.Hex
 import org.apache.commons.codec.digest.DigestUtils
+import java.io.ByteArrayOutputStream
 import java.io.File
 import java.nio.charset.Charset
 import java.util.*
-import java.util.regex.Matcher
 import java.util.regex.Pattern
+import java.util.zip.GZIPOutputStream
 
 /**
  * 静态方法 从一个字符串中随机字符串
@@ -110,19 +111,28 @@ fun String.isPhoneNumber(): Boolean = Pattern.compile("^((13[0-9])|(15[^4])|(18[
 
 /**
  * 当作一个File对象
+ * @since 1.0.0
  */
 fun String.asFile(): File = File(this)
 
 /**
- * 返回一个 machter 对象
+ * 当作一个十六进制字符串解析
  *
  * @since 1.0.2
  */
-fun String.matcher(pattern: String, option: RegexOption = RegexOption.MULTILINE): Matcher = Regex(pattern, option).toPattern().matcher(this)
+fun String.asHexString(): ByteArray = Hex.decodeHex(this.toCharArray())
 
 /**
- * 返回一个 machter 对象
+ * 当作一个十六进制字符串解析
  *
  * @since 1.0.2
  */
-fun String.matcher(regex: Regex): Matcher = regex.toPattern().matcher(this)
+fun String.decodeHex(): ByteArray = asHexString()
+
+/**
+ * 使用gzip压缩字符串
+ *
+ * @since 1.0.2
+ */
+fun String.compressGzip(charset: Charset = Charsets.UTF_8): ByteArray = this.toByteArray(charset).compressGzip()
+

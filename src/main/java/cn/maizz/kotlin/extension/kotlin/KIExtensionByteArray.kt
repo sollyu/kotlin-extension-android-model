@@ -17,75 +17,49 @@
 
 package cn.maizz.kotlin.extension.kotlin
 
-import org.apache.commons.codec.binary.Base64
-import org.apache.commons.codec.binary.Hex
-import org.apache.commons.codec.digest.DigestUtils
-import java.io.File
+import java.io.ByteArrayInputStream
+import java.io.ByteArrayOutputStream
+import java.security.MessageDigest
+import java.util.zip.GZIPInputStream
+import java.util.zip.GZIPOutputStream
 
 
 /**
  * 转换成16进制字符串
  */
-fun ByteArray.toStringHex(): String = String(Hex.encodeHex(this))
-
-/**
- * 编码
- *
- * @since 1.0.2
- */
-fun ByteArray.base64Encode():ByteArray = Base64.encodeBase64(this)
-
-/**
- * 解码
- *
- * @since 1.0.2
- */
-fun ByteArray.base64Decode():ByteArray = Base64.decodeBase64(this)
-
+fun ByteArray.toStringHex(): String = this.joinToString(separator = "") { it.toInt().and(0xff).toString(16).padStart(2, '0') }
 
 /**
  * 计算MD5值
  */
-fun ByteArray.md5(): ByteArray = DigestUtils.md5(this)
+fun ByteArray.md5(): String = MessageDigest.getInstance("MD5").digest(this).joinToString("") { String.format("%02x", it) }
 
 /**
- * 计算SHA1值
- * @since 1.0.2
- * TODO: 补充测试用例
- */
-fun ByteArray.sha1(): ByteArray = DigestUtils.sha1(this)
-
-/**
- * 计算文件的sha256
- * @since 1.0.2
- * TODO: 补充测试用例
- */
-fun ByteArray.sha256(): ByteArray = DigestUtils.sha256(this)
-
-/**
- * 计算文件的sha384
- * @since 1.0.2
- * TODO: 补充测试用例
- */
-fun ByteArray.sha384(): ByteArray = DigestUtils.sha384(this)
-
-/**
- * 计算文件的sha512
+ * 使用gzip压缩
  *
- * TODO: 补充测试用例
  * @since 1.0.2
  */
-fun ByteArray.sha512(): ByteArray = DigestUtils.sha512(this)
+fun ByteArray.compressGzip():ByteArray {
+    val byteArrayOutputStream: ByteArrayOutputStream = ByteArrayOutputStream()
+    val gzipOutputStream: GZIPOutputStream = GZIPOutputStream(byteArrayOutputStream)
+    gzipOutputStream.write(this)
+    gzipOutputStream.close()
+    return byteArrayOutputStream.toByteArray()
+}
 
 /**
- * 写入到文件
+ * 使用gzip进行解压
  *
- * @param file 文件
- * @param append 是否追加写入
- *
- * @see File.writeBytes
  * @since 1.0.2
- *
- * TODO: 补充测试用例
  */
-fun ByteArray.write(file: File, append: Boolean = false): Unit = if (append) file.appendBytes(array = this) else file.writeBytes(array = this)
+fun ByteArray.uncompressGzip():ByteArray {
+    val byteArrayOutputStream:ByteArrayOutputStream = ByteArrayOutputStream()
+    val byteArrayInputStream: ByteArrayInputStream = ByteArrayInputStream(this)
+    val gzipInputStream: GZIPInputStream = GZIPInputStream(byteArrayInputStream)
+    val buffer = ByteArray(256)
+    var n: Int
+    while (gzipInputStream.read(buffer).also { n = it } >= 0) {
+        byteArrayOutputStream.write(buffer, 0, n)
+    }
+    return byteArrayOutputStream.toByteArray()
+}

@@ -51,7 +51,7 @@ fun Context.queryUsageStats(intervalType: Int = UsageStatsManager.INTERVAL_BEST,
     (this.getSystemService(Context.USAGE_STATS_SERVICE) as UsageStatsManager).queryUsageStats(intervalType, beginTime, endTime)
 
 /**
- *
+ * 返回一个TelephonyManager 对象
  */
 fun Context.getTelephonyManager(): TelephonyManager = this.getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager
 
